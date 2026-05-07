@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RepsRex">
         <activity
+            android:name=".activities.CreateRoutineActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.MainActivity"
             android:exported="true">
             <intent-filter>

@@ -1,5 +1,6 @@
 package com.javier.repsrex.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -64,7 +65,9 @@ class MainActivity : AppCompatActivity() {
 
         // FAB (por ahora solo un Toast)
         binding.addRoutineFAB.setOnClickListener {
-            Toast.makeText(this, "Añadir rutina - Próximamente", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(this, "Añadir rutina - Próximamente", Toast.LENGTH_SHORT).show() -- previo a abri la pantalla nueva para debug
+            val intent = Intent(this, CreateRoutineActivity::class.java)
+            startActivity(intent)
         }
     }
 
