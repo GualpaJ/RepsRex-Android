@@ -1,5 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <!-- Surface Colors (Tonal Layering) -->
+    <color name="surface_dim">#131313</color>
+    <color name="surface_bright">#393939</color>
+    <color name="surface_container_lowest">#0e0e0e</color>
+    <color name="surface_container_low">#1c1b1b</color>
+    <color name="surface_container">#201f1f</color>
+    <color name="surface_container_high">#2a2a2a</color>
+    <color name="surface_container_highest">#353534</color>
+
+    <!-- Base Background & Surface -->
+    <color name="background">#131313</color>
+    <color name="surface">#1E1E1E</color>
+    <color name="surface_variant">#353534</color>
+
+    <!-- On Surface Colors (Text) -->
+    <color name="on_surface">#E5E2E1</color>
+    <color name="on_surface_variant">#C1C6D7</color>
+    <color name="inverse_surface">#E5E2E1</color>
+    <color name="inverse_on_surface">#313030</color>
+
+    <!-- Outline / Borders -->
+    <color name="outline">#8B90A0</color>
+    <color name="outline_variant">#414754</color>
+
+    <!-- Primary - Electric Blue -->
+    <color name="primary">#007BFF</color>
+    <color name="on_primary">#FFFFFF</color>
+    <color name="primary_container">#005CBE</color>
+    <color name="on_primary_container">#D8E2FF</color>
+    <color name="inverse_primary">#005BC0</color>
+    <color name="surface_tint">#007BFF</color>
+
+    <!-- Primary Fixed -->
+    <color name="primary_fixed">#D8E2FF</color>
+    <color name="primary_fixed_dim">#ADC7FF</color>
+    <color name="on_primary_fixed">#001A41</color>
+    <color name="on_primary_fixed_variant">#004493</color>
+
+    <!-- Secondary - Vibrant Green -->
+    <color name="secondary">#2ECC71</color>
+    <color name="on_secondary">#003919</color>
+    <color name="secondary_container">#06BB63</color>
+    <color name="on_secondary_container">#00431F</color>
+
+    <!-- Secondary Fixed -->
+    <color name="secondary_fixed">#6BFE9C</color>
+    <color name="secondary_fixed_dim">#4AE183</color>
+    <color name="on_secondary_fixed">#00210C</color>
+    <color name="on_secondary_fixed_variant">#005228</color>
+
+    <!-- Tertiary - Amber/Yellow -->
+    <color name="tertiary">#EFC209</color>
+    <color name="on_tertiary">#3C2F00</color>
+    <color name="tertiary_container">#CEA700</color>
+    <color name="on_tertiary_container">#4E3E00</color>
+
+    <!-- Tertiary Fixed -->
+    <color name="tertiary_fixed">#FFE084</color>
+    <color name="tertiary_fixed_dim">#EEC209</color>
+    <color name="on_tertiary_fixed">#231B00</color>
+    <color name="on_tertiary_fixed_variant">#574500</color>
+
+    <!-- Error / Alert - High Saturation Red -->
+    <color name="error">#FF453A</color>
+    <color name="on_error">#690005</color>
+    <color name="error_container">#93000A</color>
+    <color name="on_error_container">#FFDAD6</color>
+
+    <!-- Success (adicional para completados) -->
+    <color name="success">#2ECC71</color>
+    <color name="on_success">#003919</color>
+
+    <!-- Progress Track -->
+    <color name="progress_track">#333333</color>
+
+    <!-- Card Stroke -->
+    <color name="card_stroke">#333333</color>
 </resources>
