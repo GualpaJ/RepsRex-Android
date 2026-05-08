@@ -2,6 +2,7 @@ package com.javier.repsrex.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -38,7 +39,15 @@ class MainActivity : AppCompatActivity() {
 
         // Inicializar DAO
         routineDAO = RoutineDAO(this)
+
+        // Cargo los datos de la BD
         routineList = routineDAO.getAll()
+
+        // 🔍 LOG para ver cuántas rutinas hay
+        Log.i("MAIN", "📊 Rutinas cargadas: ${routineList.size}")
+        for (r in routineList) {
+            Log.i("MAIN", "   - ${r.name} (id: ${r.id})")
+        }
 
         // Configurar adapter
         adapter = RoutineAdapter(routineList, ::onRoutineClick, ::onRoutineLongClick, ::onRoutineDelete)
@@ -63,9 +72,8 @@ class MainActivity : AppCompatActivity() {
         )
         itemTouchHelper.attachToRecyclerView(binding.routineRecyclerView)
 
-        // FAB (por ahora solo un Toast)
+        // FAB - abre pantalla para crear nueva rutina
         binding.addRoutineFAB.setOnClickListener {
-            //Toast.makeText(this, "Añadir rutina - Próximamente", Toast.LENGTH_SHORT).show() -- previo a abri la pantalla nueva para debug
             val intent = Intent(this, CreateRoutineActivity::class.java)
             startActivity(intent)
         }
@@ -78,11 +86,12 @@ class MainActivity : AppCompatActivity() {
         // TODO: Luego abrir detalle
     }
 
-    // Long click: edita (por ahora solo Toast)
+    // Long click: edita
     fun onRoutineLongClick(position: Int) {
         val routine = routineList[position]
-        Toast.makeText(this, "Editar: ${routine.name} - Próximamente", Toast.LENGTH_SHORT).show()
-        // TODO: Luego abrir diálogo de edición
+        val intent = Intent(this, CreateRoutineActivity::class.java)
+        intent.putExtra("ROUTINE_ID", routine.id)
+        startActivity(intent)
     }
 
     // Eliminar con confirmación
@@ -110,5 +119,10 @@ class MainActivity : AppCompatActivity() {
     private fun refreshList() {
         routineList = routineDAO.getAll()
         adapter.updateData(routineList)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        refreshList()
     }
 }

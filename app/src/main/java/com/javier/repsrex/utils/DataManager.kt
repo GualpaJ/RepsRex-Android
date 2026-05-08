@@ -3,6 +3,7 @@ package com.javier.repsrex.utils
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.util.Log
 import com.javier.repsrex.data.Routine
 import java.io.BufferedReader
 import java.io.InputStreamReader
@@ -36,6 +37,7 @@ class DatabaseManager(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
 
     /**
      * Lee un archivo SQL desde la carpeta assets y ejecuta TODAS las sentencias
+     * Si una sentencia falla, la saltamos y seguimos con la siguiente
      */
     private fun executeSqlFromAssets(db: SQLiteDatabase, fileName: String) {
         try {
@@ -53,12 +55,24 @@ class DatabaseManager(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
 
             // Dividir por ";" y ejecutar cada sentencia individualmente
             val statements = sql.toString().split(";")
+            var sentenciasEjecutadas = 0
+            var sentenciasFallidas = 0
+
             for (statement in statements) {
                 val trimmed = statement.trim()
                 if (trimmed.isNotEmpty()) {
-                    db.execSQL(trimmed)
+                    try {
+                        db.execSQL(trimmed)
+                        sentenciasEjecutadas++
+                    } catch (e: Exception) {
+                        sentenciasFallidas++
+                        // Solo logueamos el error para debug, pero no paramos la ejecución
+                        Log.e("SQL_ERROR", "Fallo al ejecutar sentencia #${sentenciasEjecutadas + sentenciasFallidas}", e)
+                    }
                 }
             }
+
+            Log.i("DATABASE", "SQL ejecutado: $sentenciasEjecutadas OK, $sentenciasFallidas fallaron")
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -69,10 +83,10 @@ class DatabaseManager(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
         db.delete(Routine.TABLE_NAME, null, null)
 
         val sampleRoutines = listOf(
-            Routine(id = -1, name = "Hypertrophy A", type = "strength", frequency = 3),
-            Routine(id = -1, name = "Core Stability", type = "stretching", frequency = 5),
-            Routine(id = -1, name = "Powerlifting Max", type = "strength", frequency = 3),
-            Routine(id = -1, name = "Active Recovery", type = "cardio", frequency = 2)
+            Routine(id = -1, name = "Hypertrophy A", type = "strength", frequency = 3, days = "Mon, Wed, Fri"),
+            Routine(id = -1, name = "Core Stability", type = "stretching", frequency = 5, days = "Daily"),
+            Routine(id = -1, name = "Powerlifting Max", type = "strength", frequency = 3, days = "Weekends"),
+            Routine(id = -1, name = "Active Recovery", type = "cardio", frequency = 2, days = "Tue, Thu")
         )
 
         sampleRoutines.forEach { routine ->
@@ -80,6 +94,7 @@ class DatabaseManager(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
                 put(Routine.COLUMN_NAME, routine.name)
                 put(Routine.COLUMN_TYPE, routine.type)
                 put(Routine.COLUMN_FREQUENCY, routine.frequency)
+                put(Routine.COLUMN_DAYS, routine.days)
                 put(Routine.COLUMN_ICON_RES, routine.iconRes)
             }
             db.insert(Routine.TABLE_NAME, null, values)
@@ -88,7 +103,7 @@ class DatabaseManager(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
 
     companion object {
         // FIXME: Cambiar si tocamos base de datos, sino desinstalar app entero y listo !
-        const val DATABASE_VERSION = 1
+        const val DATABASE_VERSION = 2  // ← Subí a 2 para que se recree la BD
         const val DATABASE_NAME = "RepsRex.db"
     }
 }

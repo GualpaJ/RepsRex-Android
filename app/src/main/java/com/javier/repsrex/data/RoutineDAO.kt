@@ -32,6 +32,7 @@ class RoutineDAO(val context: Context) {
         values.put(Routine.COLUMN_NAME, routine.name)
         values.put(Routine.COLUMN_TYPE, routine.type)
         values.put(Routine.COLUMN_FREQUENCY, routine.frequency)
+        values.put(Routine.COLUMN_DAYS, routine.days)
         values.put(Routine.COLUMN_ICON_RES, routine.iconRes)
         return values
     }
@@ -41,9 +42,10 @@ class RoutineDAO(val context: Context) {
         val name = cursor.getString(cursor.getColumnIndexOrThrow(Routine.COLUMN_NAME))
         val type = cursor.getString(cursor.getColumnIndexOrThrow(Routine.COLUMN_TYPE))
         val frequency = cursor.getInt(cursor.getColumnIndexOrThrow(Routine.COLUMN_FREQUENCY))
+        val days = cursor.getString(cursor.getColumnIndexOrThrow(Routine.COLUMN_DAYS))
         val iconRes = cursor.getInt(cursor.getColumnIndexOrThrow(Routine.COLUMN_ICON_RES))
 
-        return Routine(id, name, type, frequency, iconRes)
+        return Routine(id, name, type, frequency, days, iconRes)
     }
 
     fun insert(routine: Routine) {
