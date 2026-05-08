@@ -93,13 +93,25 @@
                             android:id="@+id/motivationalPhraseTextView"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="The only place where success comes before work is in the dictionary."
+                            android:text="🧠 Loading gains for your brain..."
                             android:textStyle="italic"
                             android:textSize="16sp"
                             android:textColor="@color/on_surface"
                             android:lineSpacingExtra="6dp"
                             android:fontFamily="sans-serif"
                             android:layout_marginTop="4dp"/>
+
+                        <!-- Autor de la frase -->
+                        <TextView
+                            android:id="@+id/motivationalAuthorTextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:textSize="12sp"
+                            android:textColor="@color/on_surface_variant"
+                            android:fontFamily="sans-serif"
+                            android:layout_marginTop="8dp"
+                            android:gravity="end"/>
 
                     </LinearLayout>
 

@@ -16,6 +16,11 @@ import com.javier.repsrex.adapters.RoutineAdapter
 import com.javier.repsrex.data.Routine
 import com.javier.repsrex.data.RoutineDAO
 import com.javier.repsrex.databinding.ActivityMainBinding
+import com.javier.repsrex.network.QuoteService
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity() {
 
@@ -77,6 +82,9 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, CreateRoutineActivity::class.java)
             startActivity(intent)
         }
+
+        // Carga la frase motivadora desde API
+        fetchNewQuote()
     }
 
     // Click normal: abre la rutina
@@ -124,5 +132,32 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         refreshList()
+    }
+
+    private fun fetchNewQuote() {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val quotes = QuoteService.getInstance().getRandomQuote()
+                if (quotes.isNotEmpty()) {
+                    val quote = quotes[0]
+                    withContext(Dispatchers.Main) {
+                        // Si el autor es unknown o está vacío, usamos frase de respaldo
+                        if (quote.a.isNullOrEmpty() || quote.a == "unknown") {
+                            binding.motivationalPhraseTextView.text = "Simply put, you believe that things or people make you unhappy, but this is not accurate. You make yourself unhappy"
+                            binding.motivationalAuthorTextView.text = "— Wayne Dyer"
+                        } else {
+                            binding.motivationalPhraseTextView.text = quote.q
+                            binding.motivationalAuthorTextView.text = "— ${quote.a}"
+                        }
+                    }
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                withContext(Dispatchers.Main) {
+                    binding.motivationalPhraseTextView.text = "Simply put, you believe that things or people make you unhappy, but this is not accurate. You make yourself unhappy"
+                    binding.motivationalAuthorTextView.text = "— Wayne Dyer"
+                }
+            }
+        }
     }
 }
