@@ -1,6 +1,7 @@
 package com.javier.repsrex.activities
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -9,11 +10,12 @@ import com.javier.repsrex.databinding.ActivityRoutineDetailBinding
 
 class RoutineDetailActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityRoutineDetailBinding
+    lateinit var binding: ActivityRoutineDetailBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
         binding = ActivityRoutineDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -23,6 +25,18 @@ class RoutineDetailActivity : AppCompatActivity() {
             insets
         }
 
+        // Recibir ID de la rutina
+        val routineId = intent.getIntExtra("ROUTINE_ID", -1)
 
+        // FAB para añadir ejercicio
+        binding.fabAddExercise.setOnClickListener {
+            Toast.makeText(this, "Add exercise", Toast.LENGTH_SHORT).show()
+        }
     }
+
+    fun onExerciseClick(position: Int) {
+        // TODO: Abrir detalle del ejercicio NO HAY OPCION DE EDITAR
+        Toast.makeText(this, "Exercise clicked: $position", Toast.LENGTH_SHORT).show()
+    }
+
 }
