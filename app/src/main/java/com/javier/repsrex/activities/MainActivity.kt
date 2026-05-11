@@ -87,11 +87,19 @@ class MainActivity : AppCompatActivity() {
         fetchNewQuote()
     }
 
-    // Click normal: abre la rutina
+    // Click normal: abre la rutina (comentado para grabar a fuego en la memoria)
     fun onRoutineClick(position: Int) {
+        // 1. Obtener la rutina que el rey ha pulsado
         val routine = routineList[position]
-        Toast.makeText(this, "Abriendo: ${routine.name}", Toast.LENGTH_SHORT).show()
-        // TODO: Luego abrir detalle
+
+        // 2. Crear un mensajero (Intent) que irá a la otra pantalla
+        val intent = Intent(this, RoutineDetailActivity::class.java)
+
+        // 3. Meter el ID en el mensajero (como una nota atada a la pata de la paloma)
+        intent.putExtra("ROUTINE_ID", routine.id)
+
+        // 4. Enviar el mensajero (abrir la nueva pantalla)
+        startActivity(intent)
     }
 
     // Long click: edita

@@ -2,7 +2,10 @@ package com.javier.repsrex.activities
 
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import com.javier.repsrex.adapters.CategoryChipAdapter
 import com.javier.repsrex.data.ExerciseDAO
 import com.javier.repsrex.data.Routine
@@ -23,8 +26,16 @@ class CreateRoutineActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+
         binding = ActivityCreateRoutineBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
 
         // Veo si me pasaron un ID (vengo de editar una rutina)
         routineId = intent.getIntExtra("ROUTINE_ID", -1)
