@@ -83,10 +83,10 @@ class DatabaseManager(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
         db.delete(Routine.TABLE_NAME, null, null)
 
         val sampleRoutines = listOf(
-            Routine(id = -1, name = "Hypertrophy A", type = "strength", frequency = 3, days = "Mon, Wed, Fri"),
-            Routine(id = -1, name = "Core Stability", type = "stretching", frequency = 5, days = "Daily"),
-            Routine(id = -1, name = "Powerlifting Max", type = "strength", frequency = 3, days = "Weekends"),
-            Routine(id = -1, name = "Active Recovery", type = "cardio", frequency = 2, days = "Tue, Thu")
+            Routine(id = -1, name = "Pull Day", type = "strength", frequency = 2, days = "Mon, Tue"),
+            Routine(id = -1, name = "Push Day", type = "strength", frequency = 2, days = "Tue, Fri"),
+            Routine(id = -1, name = "Legs", type = "strength", frequency = 2, days = "Wed, Sat"),
+            Routine(id = -1, name = "Cardio", type = "cardio", frequency = 2, days = "Mon, Thu")
         )
 
         sampleRoutines.forEach { routine ->
@@ -103,7 +103,7 @@ class DatabaseManager(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
 
     companion object {
         // FIXME: Cambiar si tocamos base de datos, sino desinstalar app entero y listo !
-        const val DATABASE_VERSION = 2  // ← Subí a 2 para que se recree la BD
+        const val DATABASE_VERSION = 1
         const val DATABASE_NAME = "RepsRex.db"
     }
 }

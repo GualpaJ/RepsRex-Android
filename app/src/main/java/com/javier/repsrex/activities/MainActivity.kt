@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
         // Cargo los datos de la BD
         routineList = routineDAO.getAll()
 
-        // 🔍 LOG para ver cuántas rutinas hay
+        // LOG para ver cuántas rutinas hay
         Log.i("MAIN", "📊 Rutinas cargadas: ${routineList.size}")
         for (r in routineList) {
             Log.i("MAIN", "   - ${r.name} (id: ${r.id})")
@@ -110,15 +110,15 @@ class MainActivity : AppCompatActivity() {
     private fun deleteRoutine(position: Int) {
         val routine = routineList[position]
 
-        MaterialAlertDialogBuilder(this)
-            .setTitle("Borrar rutina")
-            .setMessage("¿Seguro que quieres borrar \"${routine.name}\"?")
-            .setPositiveButton("Sí") { _, _ ->
+        MaterialAlertDialogBuilder(this, R.style.ThemeOverlay_RepsRex_AlertDialog)
+            .setTitle("Delete this routine?")
+            .setMessage("Are you sure you want to delete \"${routine.name}\"?")
+            .setPositiveButton("Yes") { _, _ ->
                 routineDAO.delete(routine)
                 refreshList()
-                Toast.makeText(this, "Rutina eliminada", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Routine deleted", Toast.LENGTH_SHORT).show()
             }
-            .setNegativeButton("Cancelar") { _, _ ->
+            .setNegativeButton("Cancel") { _, _ ->
                 refreshList()
             }
             .show()
@@ -127,6 +127,14 @@ class MainActivity : AppCompatActivity() {
     private fun refreshList() {
         routineList = routineDAO.getAll()
         adapter.updateData(routineList)
+
+        // Para contador de rutinas
+        val count = routineList.size
+        binding.routinesCountTextView.text = when (count) {
+            0 -> "No routines"
+            1 -> "1 Active"
+            else -> "$count Active"
+        }
     }
 
     override fun onResume() {

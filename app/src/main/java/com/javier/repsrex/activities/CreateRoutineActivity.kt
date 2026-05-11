@@ -163,19 +163,49 @@ class CreateRoutineActivity : AppCompatActivity() {
             binding.routineNameInput.setText(it.name)
 
             val daysList = it.days.split(", ")
+
+            // Limpiar selectedDays antes de cargar
+            selectedDays.clear()
+
             daysList.forEach { day ->
                 when (day) {
-                    "Mon" -> binding.chipMon.isChecked = true
-                    "Tue" -> binding.chipTue.isChecked = true
-                    "Wed" -> binding.chipWed.isChecked = true
-                    "Thu" -> binding.chipThu.isChecked = true
-                    "Fri" -> binding.chipFri.isChecked = true
-                    "Sat" -> binding.chipSat.isChecked = true
-                    "Sun" -> binding.chipSun.isChecked = true
+                    "Mon" -> {
+                        binding.chipMon.isChecked = true
+                        selectedDays.add("Mon")
+                    }
+                    "Tue" -> {
+                        binding.chipTue.isChecked = true
+                        selectedDays.add("Tue")
+                    }
+                    "Wed" -> {
+                        binding.chipWed.isChecked = true
+                        selectedDays.add("Wed")
+                    }
+                    "Thu" -> {
+                        binding.chipThu.isChecked = true
+                        selectedDays.add("Thu")
+                    }
+                    "Fri" -> {
+                        binding.chipFri.isChecked = true
+                        selectedDays.add("Fri")
+                    }
+                    "Sat" -> {
+                        binding.chipSat.isChecked = true
+                        selectedDays.add("Sat")
+                    }
+                    "Sun" -> {
+                        binding.chipSun.isChecked = true
+                        selectedDays.add("Sun")
+                    }
                 }
             }
+
+            // Actualizar el resumen visual
+            actualizarResumenDias()
 
             selectedCategory = it.type
         }
     }
+
+
 }

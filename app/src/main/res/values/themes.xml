@@ -52,4 +52,22 @@
     </style>
 
     <style name="Theme.RepsRex" parent="Base.Theme.RepsRex" />
+
+    <style name="ThemeOverlay.RepsRex.AlertDialog" parent="ThemeOverlay.Material3.MaterialAlertDialog">
+        <!-- Fondo del dialog -->
+        <item name="android:background">@color/surface_container</item>
+
+        <!-- Botones: Primary = Electric Blue -->
+        <item name="colorPrimary">@color/primary</item>
+
+        <!-- Texto del título -->
+        <item name="android:textColorPrimary">@color/on_surface</item>
+
+        <!-- Texto del mensaje -->
+        <item name="android:textColorSecondary">@color/on_surface_variant</item>
+
+        <!-- Colores de los botones -->
+        <item name="colorOnPrimary">@color/on_primary</item>
+        <item name="colorOnSurface">@color/on_surface</item>
+    </style>
 </resources>

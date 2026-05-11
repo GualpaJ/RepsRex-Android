@@ -46,7 +46,7 @@ class RoutineViewHolder(val binding: ItemRoutineBinding) : RecyclerView.ViewHold
 
     fun render(routine: Routine) {
         binding.titleTextView.text = routine.name
-        binding.subtitleText.text = "${routine.frequency} veces/semana · ${routine.type}"
+        binding.subtitleText.text = "${routine.frequency}x/week · ${routine.type.uppercase()}"
         // Icono fijo por ahora, sin UX fancy
         binding.iconImageView.setImageResource(com.javier.repsrex.R.drawable.ic_gym)
     }
