@@ -14,8 +14,8 @@ class CreateRoutineActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCreateRoutineBinding
 
     // Variables importantes
-    private var selectedCategory = ""      // La categoría que elige el usuario
-    private val selectedDays = mutableSetOf<String>()  // Días que marca (ej: "Mon", "Wed")
+    private var selectedCategory = ""
+    private val selectedDays = mutableSetOf<String>()
 
     // Para saber si estamos editando o creando
     private var routineId = -1
@@ -30,41 +30,29 @@ class CreateRoutineActivity : AppCompatActivity() {
         routineId = intent.getIntExtra("ROUTINE_ID", -1)
         isEditing = routineId != -1
 
-        // Cambio el título de la pantalla según si creo o edito
+        // Cargar datos si es edición
         if (isEditing) {
-            supportActionBar?.title = "Edit Routine"
             cargarDatosParaEditar()
-        } else {
-            supportActionBar?.title = "New Routine"
         }
 
-        // Botón de volver atrás (flecha)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-        // 1. Cargar las categorías desde la tabla exercises
+        // Cargar las categorías desde la tabla exercises
         cargarCategorias()
 
-        // 2. Configurar los chips de días de la semana
+        // Configurar los chips de días de la semana
         configurarDiasSemana()
 
-        // 3. Botón guardar
+        // Botón guardar
         binding.btnSaveRoutine.setOnClickListener {
             guardarRutina()
         }
 
-        // 4. Botón cancelar
+        // Botón cancelar
         binding.btnCancel.setOnClickListener {
             finish()
         }
     }
 
-    // Flecha de volver atrás
-    override fun onSupportNavigateUp(): Boolean {
-        finish()
-        return true
-    }
-
-    // Cargo las categorías REALES desde la tabla exercises
+    // Cargo las categorías desde la tabla exercises
     private fun cargarCategorias() {
         val exerciseDAO = ExerciseDAO(this)
         val categories = exerciseDAO.getDistinctCategories()
@@ -74,7 +62,6 @@ class CreateRoutineActivity : AppCompatActivity() {
             return
         }
 
-        // Selecciono la primera por defecto
         selectedCategory = categories[0]
 
         val adapter = CategoryChipAdapter(categories) { category ->
@@ -164,7 +151,6 @@ class CreateRoutineActivity : AppCompatActivity() {
 
             val daysList = it.days.split(", ")
 
-            // Limpiar selectedDays antes de cargar
             selectedDays.clear()
 
             daysList.forEach { day ->
@@ -200,12 +186,8 @@ class CreateRoutineActivity : AppCompatActivity() {
                 }
             }
 
-            // Actualizar el resumen visual
             actualizarResumenDias()
-
             selectedCategory = it.type
         }
     }
-
-
 }
