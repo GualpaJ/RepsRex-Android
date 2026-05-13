@@ -23,6 +23,9 @@ class DatabaseManager(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
 
         // Insertar rutinas de ejemplo
         insertSampleRoutines(db)
+
+        // Tabla extra de rutina y ejercicio
+        db.execSQL(RoutineExercise.SQL_CREATE)
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
