@@ -5,6 +5,7 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.util.Log
+import com.javier.repsrex.adapters.ExerciseItem
 import com.javier.repsrex.utils.DatabaseManager
 
 class RoutineExerciseDAO(val context: Context) {
@@ -182,6 +183,46 @@ class RoutineExerciseDAO(val context: Context) {
 
             while (cursor.moveToNext()) {
                 resultList.add(cursorToEntity(cursor))
+            }
+            cursor.close()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        } finally {
+            close()
+        }
+        return resultList
+    }
+
+    // Añade esta función dentro de RoutineExerciseDAO
+    fun getExercisesByRoutineId(routineId: Int): List<ExerciseItem> {
+        open()
+        val resultList = mutableListOf<ExerciseItem>()
+
+        val query = """
+        SELECT 
+            re.${RoutineExercise.COLUMN_ID} as id,
+            e.name as name,
+            e.primary_muscles as muscles,
+            re.${RoutineExercise.COLUMN_SETS} as sets,
+            re.${RoutineExercise.COLUMN_REPS} as reps
+        FROM ${RoutineExercise.TABLE_NAME} re
+        JOIN exercises e ON re.${RoutineExercise.COLUMN_EXERCISE_ID} = e.id
+        WHERE re.${RoutineExercise.COLUMN_ROUTINE_ID} = $routineId
+        ORDER BY re.${RoutineExercise.COLUMN_ID} ASC
+    """
+
+        try {
+            val cursor = db.rawQuery(query, null)
+            while (cursor.moveToNext()) {
+                resultList.add(
+                    ExerciseItem(
+                        id = cursor.getInt(0),
+                        name = cursor.getString(1),
+                        muscles = cursor.getString(2) ?: "",
+                        sets = cursor.getInt(3),
+                        reps = cursor.getString(4)
+                    )
+                )
             }
             cursor.close()
         } catch (e: Exception) {

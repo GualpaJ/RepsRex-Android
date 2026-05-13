@@ -14,6 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RepsRex">
         <activity
+            android:name=".activities.ExerciseSelectorActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.RoutineDetailActivity"
             android:exported="false" />
         <activity

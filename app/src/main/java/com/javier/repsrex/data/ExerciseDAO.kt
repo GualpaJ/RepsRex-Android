@@ -2,33 +2,35 @@ package com.javier.repsrex.data
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
+import com.javier.repsrex.adapters.ExerciseSelectorItem
 import com.javier.repsrex.utils.DatabaseManager
 
 class ExerciseDAO(val context: Context) {
 
     private lateinit var db: SQLiteDatabase
 
-    // Abro la base de datos para trabajar
+    companion object {
+        const val TABLE_NAME = "exercises"
+        const val COLUMN_ID = "id"
+        const val COLUMN_NAME = "name"
+        const val COLUMN_CATEGORY = "category"
+        const val COLUMN_PRIMARY_MUSCLES = "primary_muscles"
+    }
+
     fun open() {
         db = DatabaseManager(context).writableDatabase
     }
 
-    // Cierro la base de datos cuando termino
     fun close() {
         db.close()
     }
 
-    // Aquí voy a buscar todas las categorías distintas de la tabla exercises
-    // Esto me servirá para mostrar las opciones al usuario
     fun getDistinctCategories(): List<String> {
         open()
         val categories = mutableListOf<String>()
 
         try {
-            // La query: "dame todas las categorías sin repetir y ordénalas"
             val cursor = db.rawQuery("SELECT DISTINCT category FROM exercises ORDER BY category", null)
-
-            // Recorro el resultado y voy guardando cada categoría
             while (cursor.moveToNext()) {
                 categories.add(cursor.getString(0))
             }
@@ -38,8 +40,33 @@ class ExerciseDAO(val context: Context) {
         } finally {
             close()
         }
-
-        // Devuelvo la lista de categorías (ej: ["cardio", "strength", "stretching"...])
         return categories
+    }
+
+    fun getExercisesByCategory(category: String): List<ExerciseSelectorItem> {
+        open()
+        val resultList = mutableListOf<ExerciseSelectorItem>()
+
+        try {
+            val cursor = db.rawQuery(
+                "SELECT id, name, primary_muscles FROM exercises WHERE category = ? ORDER BY name",
+                arrayOf(category)
+            )
+            while (cursor.moveToNext()) {
+                resultList.add(
+                    ExerciseSelectorItem(
+                        id = cursor.getString(0),
+                        name = cursor.getString(1),
+                        muscles = cursor.getString(2) ?: ""
+                    )
+                )
+            }
+            cursor.close()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        } finally {
+            close()
+        }
+        return resultList
     }
 }
