@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
 import com.javier.repsrex.data.Routine
+import com.javier.repsrex.data.RoutineExercise
 import java.io.BufferedReader
 import java.io.InputStreamReader
 
