@@ -15,11 +15,6 @@ Aplicación nativa de Android desarrollada en Kotlin para la gestión de rutinas
 - Persistencia local (Room Database)
 - Diseño moderno con **Material Design**
 
-### 🔹 v1.1
-- ✏️ Edición de rutinas y ejercicios
-- 📊 Registro de progreso (fecha, peso, series realizadas)
-- 📈 Historial de entrenamientos
-
 ---
 
 ## 🛠 Tecnologías utilizadas
@@ -38,17 +33,42 @@ Aplicación nativa de Android desarrollada en Kotlin para la gestión de rutinas
 
 ## 📷 Capturas de pantalla
 
-### 🟢 v1.0 – Lista de rutinas y ejercicios
-<p align="center">
-  <img src="screenshots/routines_list.png" width="250">
-  <img src="screenshots/add_exercise.png" width="250">
-</p>
+### 🟢 v1.0 – Pantallas principales
 
-### 🔵 v1.1 – Detalle de rutina y progreso
-<p align="center">
-  <img src="screenshots/routine_detail.png" width="250">
-  <img src="screenshots/progress.png" width="250">
-</p>
+<div align="center">
+  <table>
+    <tr>
+      <td align="center">
+        <img src="screenshots/pantalla_inicial.png" width="250" alt="Pantalla inicial"><br>
+        <sub><b>Pantalla inicial</b><br>Lista de rutinas guardadas</sub>
+      </td>
+      <td align="center">
+        <img src="screenshots/detalle_rutina.png" width="250" alt="Detalle de rutina"><br>
+        <sub><b>Detalle de rutina</b><br>Ejercicios y series asignadas</sub>
+      </td>
+    </tr>
+    <tr>
+      <td align="center">
+        <img src="screenshots/modal_borrar.png" width="250" alt="Modal borrar"><br>
+        <sub><b>Modal de confirmación</b><br>Eliminar rutina</sub>
+      </td>
+      <td align="center">
+        <img src="screenshots/crear_rutina.png" width="250" alt="Crear rutina"><br>
+        <sub><b>Crear rutina</b><br>Formulario para nueva rutina</sub>
+      </td>
+    </tr>
+    <tr>
+      <td align="center">
+        <img src="screenshots/anadir_ejercicio.png" width="250" alt="Añadir ejercicio"><br>
+        <sub><b>Añadir ejercicio</b><br>Catálogo de 530+ ejercicios</sub>
+      </td>
+      <td align="center">
+        <img src="screenshots/config_series.png" width="250" alt="Configurar series"><br>
+        <sub><b>Configuración de series</b><br>Series y repeticiones por ejercicio</sub>
+      </td>
+    </tr>
+  </table>
+</div>
 
 ---
 
@@ -57,7 +77,6 @@ Aplicación nativa de Android desarrollada en Kotlin para la gestión de rutinas
 | Versión | Estado | Funcionalidades |
 |---------|--------|-----------------|
 | v1.0 | ✅ Completado | Gestión de ejercicios + Creación de rutinas + Persistencia |
-| v1.1 | ✅ Completado | Edición + Registro de progreso + Historial |
 
 ---
 
